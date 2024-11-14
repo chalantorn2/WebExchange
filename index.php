@@ -82,8 +82,8 @@ include 'config.php';
                 <tr class="header-bg">
                     <th class="px-4 py-2 w-40p">Currency Flag</th>
                     <th class="px-4 py-2 w-40p">Currency Name</th>
-                    <th class="px-4 py-2 w-60p font-32-bold">Denomination</th>
-                    <th class="px-4 py-2 w-60p font-32-bold">Buying</th>
+                    <th class="px-4 py-2 w-60p font-28-bold">Denomination</th>
+                    <th class="px-4 py-2 w-60p font-28-bold">Buying</th>
                 </tr>
             </thead>
             <tbody>
