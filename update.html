@@ -41,7 +41,8 @@
     <div class="container max-w-4xl w-full flex-grow bg-gray-800 py-10 px-5 rounded-lg shadow-lg">
         <h1 class="text-center text-white text-3xl font-bold mb-5">Update Currencies</h1>
         <a href="index.html"
-        class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded w-full text-center">Back to Exchange Table</a>
+            class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded w-full text-center">Back to
+            Exchange Table</a>
         <table class="table-fixed w-full text-center border-collapse mt-4">
             <thead class="bg-gray-900 text-white sticky top-0 z-10">
                 <tr>
@@ -57,12 +58,18 @@
                 <!-- Data will be populated dynamically -->
             </tbody>
         </table>
+        <div class="mt-5">
+            <button id="update-all-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded font-bold">
+                Update All Rows
+            </button>
+        </div>
+
     </div>
 
     <script type="module">
- import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
-import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js';
-
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
+        import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js';
+        import { onSnapshot } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyD3-ExampleApiKey",
@@ -169,7 +176,49 @@ import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } fro
             }, 3000); // Toast will disappear after 3 seconds
         }
 
+        onSnapshot(query(currenciesCollection, orderBy('display_order', 'asc')), (snapshot) => {
+            fetchAndRenderCurrencies();
+        });
+
+
         fetchAndRenderCurrencies();
+
+        document.getElementById('update-all-btn').addEventListener('click', async () => {
+            const rows = document.querySelectorAll('#update-table tr');
+            const updates = [];
+
+            rows.forEach(row => {
+                const docId = row.getAttribute('data-id'); // Assuming each row has a data-id attribute
+                const displayOrderInput = row.querySelector('input[type="number"]');
+                const denominationInput = row.querySelector('input[type="text"]:nth-of-type(1)');
+                const buyingInput = row.querySelector('input[type="text"]:nth-of-type(2)');
+
+                if (docId && displayOrderInput && denominationInput && buyingInput) {
+                    updates.push({
+                        id: docId,
+                        data: {
+                            display_order: parseInt(displayOrderInput.value),
+                            denomination: denominationInput.value,
+                            buying: buyingInput.value,
+                        },
+                    });
+                }
+            });
+
+            // Execute all updates in parallel
+            const updatePromises = updates.map(update => {
+                const docRef = doc(db, 'currencies', update.id);
+                return updateDoc(docRef, update.data);
+            });
+
+            try {
+                await Promise.all(updatePromises);
+                showToast('All rows updated successfully!');
+            } catch (error) {
+                showToast('Error updating rows: ' + error.message);
+            }
+        });
+
     </script>
 </body>
 
