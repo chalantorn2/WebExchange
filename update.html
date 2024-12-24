@@ -59,7 +59,7 @@
             </tbody>
         </table>
         <div class="mt-5">
-            <button id="update-all-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded font-bold">
+            <button id="update-all-btn" class="w-full bg-blue-700 hover:bg-blue-900 text-white px-6 py-3 rounded font-bold">
                 Update All Rows
             </button>
         </div>
@@ -94,6 +94,9 @@
                 const data = docSnap.data();
                 const row = document.createElement('tr');
                 row.className = "hover:bg-gray-700";
+                row.setAttribute('data-id', docSnap.id);
+                console.log(`Row added with data-id: ${docSnap.id}`); // เพิ่มบรรทัดนี้เพื่อตรวจสอบ
+
 
                 // Currency cell
                 const currencyCell = document.createElement('td');
@@ -180,18 +183,25 @@
             fetchAndRenderCurrencies();
         });
 
-
         fetchAndRenderCurrencies();
 
         document.getElementById('update-all-btn').addEventListener('click', async () => {
             const rows = document.querySelectorAll('#update-table tr');
+            console.log('Rows found:', rows.length); // ตรวจสอบจำนวนแถว
             const updates = [];
 
             rows.forEach(row => {
-                const docId = row.getAttribute('data-id'); // Assuming each row has a data-id attribute
-                const displayOrderInput = row.querySelector('input[type="number"]');
-                const denominationInput = row.querySelector('input[type="text"]:nth-of-type(1)');
-                const buyingInput = row.querySelector('input[type="text"]:nth-of-type(2)');
+                const docId = row.getAttribute('data-id');
+                console.log(`Processing row with data-id: ${docId}`); // ตรวจสอบแต่ละแถว
+
+                // เลือก input โดยใช้ cells
+                const displayOrderInput = row.cells[4].querySelector('input[type="number"]');
+                const denominationInput = row.cells[2].querySelector('input[type="text"]');
+                const buyingInput = row.cells[3].querySelector('input[type="text"]');
+
+                console.log('Display Order Input:', displayOrderInput ? displayOrderInput.value : 'Not found');
+                console.log('Denomination Input:', denominationInput ? denominationInput.value : 'Not found');
+                console.log('Buying Input:', buyingInput ? buyingInput.value : 'Not found');
 
                 if (docId && displayOrderInput && denominationInput && buyingInput) {
                     updates.push({
@@ -202,22 +212,28 @@
                             buying: buyingInput.value,
                         },
                     });
+                } else {
+                    console.log(`Skipping row with missing inputs or data-id: ${docId}`);
                 }
             });
 
-            // Execute all updates in parallel
-            const updatePromises = updates.map(update => {
-                const docRef = doc(db, 'currencies', update.id);
-                return updateDoc(docRef, update.data);
-            });
+            if (updates.length > 0) {
+                try {
+                    await Promise.all(updates.map(update => {
+                        const docRef = doc(db, 'currencies', update.id);
+                        return updateDoc(docRef, update.data);
+                    }));
 
-            try {
-                await Promise.all(updatePromises);
-                showToast('All rows updated successfully!');
-            } catch (error) {
-                showToast('Error updating rows: ' + error.message);
+                    showToast('All rows updated successfully!');
+                } catch (error) {
+                    showToast('Error updating rows: ' + error.message);
+                }
+            } else {
+                showToast('No rows to update!');
             }
         });
+
+
 
     </script>
 </body>
