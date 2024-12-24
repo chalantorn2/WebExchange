@@ -47,9 +47,9 @@
                 <tr>
                     <th class="px-4 py-2">Currency</th>
                     <th class="px-4 py-2">Country Name</th>
-                    <th class="px-4 py-2">Display Order</th>
                     <th class="px-4 py-2">Denomination</th>
                     <th class="px-4 py-2">Buying</th>
+                    <th class="px-4 py-2">Display Order</th>
                     <th class="px-4 py-2">Actions</th>
                 </tr>
             </thead>
@@ -101,25 +101,15 @@ import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } fro
                 // Country name cell
                 const countryCell = document.createElement('td');
                 countryCell.textContent = data.country_name;
-                countryCell.className = "px-4 py-2 text-center text-white";
+                countryCell.className = "px-4 py-2 text-center text-white font-bold text-xl text-center";
                 row.appendChild(countryCell);
-
-                // Display Order cell
-                const orderCell = document.createElement('td');
-                const orderInput = document.createElement('input');
-                orderInput.type = 'number';
-                orderInput.value = data.display_order;
-                orderInput.className = "px-2 py-1 rounded w-full text-yellow-400 bg-gray-800";
-                orderCell.appendChild(orderInput);
-                orderCell.className = "px-4 py-2";
-                row.appendChild(orderCell);
 
                 // Denomination cell
                 const denominationCell = document.createElement('td');
                 const denominationInput = document.createElement('input');
                 denominationInput.type = 'text';
                 denominationInput.value = data.denomination;
-                denominationInput.className = "px-2 py-1 rounded w-full text-yellow-400 bg-gray-800";
+                denominationInput.className = "px-2 py-1 rounded w-full text-yellow-400 text-2xl font-bold text-center bg-gray-800";
                 denominationCell.appendChild(denominationInput);
                 denominationCell.className = "px-4 py-2";
                 row.appendChild(denominationCell);
@@ -129,10 +119,20 @@ import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy } fro
                 const buyingInput = document.createElement('input');
                 buyingInput.type = 'text';
                 buyingInput.value = data.buying;
-                buyingInput.className = "px-2 py-1 rounded w-full text-green-500 bg-gray-800";
+                buyingInput.className = "px-2 py-1 rounded w-full text-green-500 text-center text-2xl font-bold bg-gray-800";
                 buyingCell.appendChild(buyingInput);
                 buyingCell.className = "px-4 py-2";
                 row.appendChild(buyingCell);
+
+                // Display Order cell
+                const orderCell = document.createElement('td');
+                const orderInput = document.createElement('input');
+                orderInput.type = 'number';
+                orderInput.value = data.display_order;
+                orderInput.className = "px-2 py-1 rounded w-full text-white text-center font-bold text-xl bg-gray-800";
+                orderCell.appendChild(orderInput);
+                orderCell.className = "px-4 py-2";
+                row.appendChild(orderCell);
 
                 // Actions cell
                 const actionsCell = document.createElement('td');
