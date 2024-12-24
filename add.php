@@ -10,13 +10,14 @@ if (isset($_POST['add'])) {
     $target_file = $target_dir . basename($_FILES["currency_image"]["name"]);
 
     if (move_uploaded_file($_FILES["currency_image"]["tmp_name"], $target_file)) {
-        $sql = "INSERT INTO currencies (currency_image, country_name, denomination, buying, display_order) 
-                VALUES ('$currency_image', '$country_name', '$denomination', '$buying', (SELECT COALESCE(MAX(display_order), 0) + 1 FROM currencies))";
-        if ($conn->exec($sql)) {
-            header("Location: index.php");
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->errorInfo()[2];
-        }
+        $database->getReference('currencies')->push([
+            'currency_image' => $currency_image,
+            'country_name' => $country_name,
+            'denomination' => $denomination,
+            'buying' => $buying,
+            'display_order' => (int)($database->getReference('currencies')->getSnapshot()->numChildren() + 1)
+        ]);
+        header("Location: index.php");
     } else {
         echo "Sorry, there was an error uploading your file.";
     }

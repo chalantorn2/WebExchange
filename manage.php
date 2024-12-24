@@ -16,10 +16,10 @@
         .container {
             max-width: 1000px;
             width: 100%;
-            margin-top: 40px; /* ลดระยะห่างด้านบน */
+            margin-top: 40px;
         }
         img.flag {
-            width: 230px; /* ปรับขนาดความกว้างเป็น 230 พิกเซล */
+            width: 230px;
             height: auto;
         }
         .table-container {
@@ -58,12 +58,7 @@
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 10px; /* เพิ่มการจัดการระยะห่างด้านบนของปุ่ม */
-        }
-        .button-container a, .button-container button {
-            margin: 0;
-            padding: 0.5rem 1rem;
-            white-space: nowrap;
+            margin-top: 10px;
         }
         .actions-cell {
             display: flex;
@@ -75,11 +70,10 @@
         }
         .actions-cell a, .actions-cell button {
             display: block;
-            width: 100px; /* ปรับขนาดตามต้องการ */
+            width: 100px;
             text-align: center;
             padding: 0.5rem;
         }
-        /* ซ่อน Scrollbar */
         .table-container::-webkit-scrollbar {
             display: none;
         }
@@ -113,38 +107,44 @@
                 </thead>
                 <tbody>
                 <?php
-                $conn = new PDO("pgsql:host=" . getenv('DATABASE_HOST') . ";dbname=" . getenv('DATABASE_NAME'), getenv('DATABASE_USER'), getenv('DATABASE_PASSWORD'));
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $currencies = $database->getReference('currencies')->getValue();
+                if ($currencies) {
+                    usort($currencies, function ($a, $b) {
+                        return $a['display_order'] <=> $b['display_order'];
+                    });
 
-                $result = $conn->query("SELECT * FROM currencies ORDER BY display_order ASC") or die($conn->errorInfo()[2]);
-                $rowCount = 0;
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)): 
-                    $rowClass = ($rowCount % 2 == 0) ? 'row-bg-1' : 'row-bg-2';
-                    $rowCount++;
+                    $rowCount = 0;
+                    foreach ($currencies as $id => $currency): 
+                        $rowClass = ($rowCount % 2 == 0) ? 'row-bg-1' : 'row-bg-2';
+                        $rowCount++;
                 ?>
                     <tr class="<?php echo $rowClass; ?>">
                         <td class="border px-4 py-2">
-                            <img src="uploads/<?php echo $row['currency_image']; ?>" alt="Flag" class="flag mx-auto">
-                            <input type="file" name="currency_image[<?php echo $row['id']; ?>]" class="mt-1 p-2 w-full border rounded">
+                            <img src="uploads/<?php echo $currency['currency_image']; ?>" alt="Flag" class="flag mx-auto">
+                            <input type="file" name="currency_image[<?php echo $id; ?>]" class="mt-1 p-2 w-full border rounded">
                         </td>
                         <td class="border px-4 py-2 font-regular">
-                            <input type="hidden" name="id[]" value="<?php echo $row['id']; ?>">
-                            <input type="text" name="country_name[<?php echo $row['id']; ?>]" value="<?php echo $row['country_name']; ?>" class="mt-1 p-2 w-full border rounded">
+                            <input type="hidden" name="id[]" value="<?php echo $id; ?>">
+                            <input type="text" name="country_name[<?php echo $id; ?>]" value="<?php echo $currency['country_name']; ?>" class="mt-1 p-2 w-full border rounded">
                         </td>
                         <td class="border px-4 py-2 font-regular">
-                            <input type="text" name="denomination[<?php echo $row['id']; ?>]" value="<?php echo $row['denomination']; ?>" class="mt-1 p-2 w-full border rounded">
+                            <input type="text" name="denomination[<?php echo $id; ?>]" value="<?php echo $currency['denomination']; ?>" class="mt-1 p-2 w-full border rounded">
                         </td>
                         <td class="border px-4 py-2 font-regular">
-                            <input type="text" name="buying[<?php echo $row['id']; ?>]" value="<?php echo $row['buying']; ?>" class="mt-1 p-2 w-full border rounded">
+                            <input type="text" name="buying[<?php echo $id; ?>]" value="<?php echo $currency['buying']; ?>" class="mt-1 p-2 w-full border rounded">
                         </td>
                         <td class="border px-4 py-2 font-regular">
-                            <input type="number" name="display_order[<?php echo $row['id']; ?>]" value="<?php echo $row['display_order']; ?>" class="mt-1 p-2 w-full border rounded">
+                            <input type="number" name="display_order[<?php echo $id; ?>]" value="<?php echo $currency['display_order']; ?>" class="mt-1 p-2 w-full border rounded">
                         </td>
                         <td class="border px-4 py-2 actions-cell">
-                            <a href="crud.php?delete=<?php echo $row['id']; ?>" class="bg-red-500 text-white rounded">Delete</a>
+                            <a href="crud.php?delete=<?php echo $id; ?>" class="bg-red-500 text-white rounded">Delete</a>
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; 
+                } else {
+                    echo '<tr><td colspan="6" class="text-center">No data available</td></tr>';
+                }
+                ?>
                 </tbody>
             </table>
             <div class="text-center button-container">

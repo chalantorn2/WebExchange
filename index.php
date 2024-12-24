@@ -13,20 +13,20 @@ include 'config.php';
         body {
             font-family: 'Urbanist', sans-serif;
             background: linear-gradient(to bottom, white, #89cdf1);
-            min-height: 100vh; /* ทำให้ background เต็มจอ */
+            min-height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between; /* ทำให้ปุ่มอยู่ด้านล่างสุด */
+            justify-content: space-between;
         }
         .container {
             max-width: 1000px;
             width: 100%;
-            flex-grow: 1; /* ขยาย container เพื่อให้เต็มพื้นที่ */
+            flex-grow: 1;
         }
         img.flag {
-            width: 230px; /* ปรับขนาดความกว้างเป็น 230 พิกเซล */
+            width: 230px;
             height: auto;
         }
         .table-auto {
@@ -59,8 +59,8 @@ include 'config.php';
             color: white;
         }
         .button-container {
-            width: 100%; /* ทำให้ปุ่มกว้างเท่าตาราง */
-            margin-bottom: 5px; /* เพิ่มการจัดการระยะห่างด้านล่างของปุ่ม */
+            width: 100%;
+            margin-bottom: 5px;
         }
         .denomination-color {
             color: #ffba00;
@@ -69,7 +69,7 @@ include 'config.php';
             color: #10db00;
         }
         .full-width-button {
-            width: 100%; /* ทำให้ปุ่มกว้างเท่าตาราง */
+            width: 100%;
         }
     </style>
 </head>
@@ -88,24 +88,30 @@ include 'config.php';
             </thead>
             <tbody>
             <?php
-            $conn = new PDO("pgsql:host=" . getenv('DATABASE_HOST') . ";dbname=" . getenv('DATABASE_NAME'), getenv('DATABASE_USER'), getenv('DATABASE_PASSWORD'));
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $currencies = $database->getReference('currencies')->getValue();
+            if ($currencies) {
+                usort($currencies, function ($a, $b) {
+                    return $a['display_order'] <=> $b['display_order'];
+                });
 
-            $result = $conn->query("SELECT * FROM currencies ORDER BY display_order ASC") or die($conn->errorInfo()[2]);
-            $rowCount = 0;
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)): 
-                $rowClass = ($rowCount % 2 == 0) ? 'row-bg-1' : 'row-bg-2';
-                $rowCount++;
+                $rowCount = 0;
+                foreach ($currencies as $currency): 
+                    $rowClass = ($rowCount % 2 == 0) ? 'row-bg-1' : 'row-bg-2';
+                    $rowCount++;
             ?>
                 <tr class="<?php echo $rowClass; ?>">
                     <td class="border px-4 py-2">
-                        <img src="uploads/<?php echo $row['currency_image']; ?>" alt="Flag" class="flag mx-auto">
+                        <img src="uploads/<?php echo $currency['currency_image']; ?>" alt="Flag" class="flag mx-auto">
                     </td>
-                    <td class="border px-4 py-2 font-32-bold"><?php echo $row['country_name']; ?></td>
-                    <td class="border px-4 py-2 font-32-bold denomination-color"><?php echo $row['denomination']; ?></td>
-                    <td class="border px-4 py-2 font-32-bold buying-color"><?php echo $row['buying']; ?></td>
+                    <td class="border px-4 py-2 font-32-bold"><?php echo $currency['country_name']; ?></td>
+                    <td class="border px-4 py-2 font-32-bold denomination-color"><?php echo $currency['denomination']; ?></td>
+                    <td class="border px-4 py-2 font-32-bold buying-color"><?php echo $currency['buying']; ?></td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endforeach; 
+            } else {
+                echo '<tr><td colspan="4" class="text-center">No data available</td></tr>';
+            }
+            ?>
             </tbody>
         </table>
     </div>
