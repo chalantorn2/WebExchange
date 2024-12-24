@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Exchange</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body
+    class="bg-gradient-to-b from-white to-blue-200 min-h-screen m-0 flex flex-col items-center justify-between text-center font-urbanist">
+    <div class="container max-w-4xl w-full flex-grow bg-gray-800 py-10 px-5 rounded-lg shadow-lg">
+        <h1 class="text-center text-white text-3xl font-bold mb-5">Currency Exchange Rates</h1>
+        <table class="table-fixed w-full text-center border-collapse">
+            <thead class="bg-gray-900 text-white sticky top-0 z-10">
+                <tr>
+                    <th class="px-4 py-2 text-center">Currency</th>
+                    <th class="px-4 py-2 text-center">Country Name</th>
+                    <th class="px-4 py-2 text-center text-2xl">Denomination</th>
+                    <th class="px-4 py-2 text-center text-2xl">Buying</th>
+                </tr>
+            </thead>
+            <tbody id="currency-table" class="divide-y divide-gray-600">
+                <!-- Data will be populated dynamically -->
+            </tbody>
+        </table>
+        <div class="w-full mb-1 flex justify-end mt-4">
+            <a href="update.html"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full text-center">Update
+                Currency</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js';
+        import { getFirestore, collection, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js';
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyD3-ExampleApiKey",
+            authDomain: "exchangedb-a8aa1.firebaseapp.com",
+            projectId: "exchangedb-a8aa1",
+            storageBucket: "exchangedb-a8aa1.appspot.com",
+            messagingSenderId: "113784666559",
+            appId: "1:113784666559:web:exampleAppId"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        const currenciesCollection = collection(db, 'currencies');
+    
+        function renderTable(data) {
+            const tableBody = document.getElementById('currency-table');
+            tableBody.innerHTML = ''; // Clear existing table rows
+    
+            data.forEach(doc => {
+                const currencyData = doc.data();
+                const row = document.createElement('tr');
+                row.className = "hover:bg-gray-700";
+    
+                // Currency cell
+                const currencyCell = document.createElement('td');
+                const img = document.createElement('img');
+                img.src = `./uploads/${currencyData.currency_image}`;
+                img.alt = currencyData.country_name;
+                img.className = "w-[230px] h-auto rounded mx-auto";
+                currencyCell.className = "px-4 py-2 text-center";
+                currencyCell.appendChild(img);
+                row.appendChild(currencyCell);
+    
+                // Country name cell
+                const countryCell = document.createElement('td');
+                countryCell.textContent = currencyData.country_name;
+                countryCell.className = "px-4 py-2 text-center text-white text-xl font-bold";
+                row.appendChild(countryCell);
+    
+                // Denomination cell
+                const denominationCell = document.createElement('td');
+                denominationCell.textContent = currencyData.denomination;
+                denominationCell.className = "px-4 py-2 text-yellow-400 text-center text-3xl font-bold";
+                row.appendChild(denominationCell);
+    
+                // Buying cell
+                const buyingCell = document.createElement('td');
+                buyingCell.textContent = currencyData.buying;
+                buyingCell.className = "px-4 py-2 text-green-500 text-center text-3xl font-bold";
+                row.appendChild(buyingCell);
+    
+                tableBody.appendChild(row);
+            });
+        }
+    
+        // Listen for real-time updates
+        const q = query(currenciesCollection, orderBy('display_order', 'asc'));
+        onSnapshot(q, (snapshot) => {
+            renderTable(snapshot.docs);
+        });
+    </script>
+    
+    
+</body>
+
+</html>

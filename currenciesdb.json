@@ -1,0 +1,319 @@
+{
+  "currencies": {
+    "1": {
+      "currency_image": "Flag-01.jpg",
+      "country_name": "USD",
+      "denomination": "50-100",
+      "buying": "35.54",
+      "display_order": 1
+    },
+    "2": {
+      "currency_image": "Flag-01.jpg",
+      "country_name": "USD",
+      "denomination": "5-20",
+      "buying": "31.54",
+      "display_order": 2
+    },
+    "3": {
+      "currency_image": "Flag-01.jpg",
+      "country_name": "USD",
+      "denomination": "1",
+      "buying": "29",
+      "display_order": 3
+    },
+    "4": {
+      "currency_image": "Flag-02.jpg",
+      "country_name": "EUR",
+      "denomination": "5-500",
+      "buying": "38.65",
+      "display_order": 4
+    },
+    "5": {
+      "currency_image": "Flag-03.jpg",
+      "country_name": "GBP",
+      "denomination": "5-50",
+      "buying": "45.95",
+      "display_order": 5
+    },
+    "6": {
+      "currency_image": "Flag-04.jpg",
+      "country_name": "CHF",
+      "denomination": "10-1000",
+      "buying": "39.20",
+      "display_order": 6
+    },
+    "7": {
+      "currency_image": "Flag-05.jpg",
+      "country_name": "AUD",
+      "denomination": "100 - 5",
+      "buying": "23.75",
+      "display_order": 7
+    },
+    "8": {
+      "currency_image": "Flag-06.jpg",
+      "country_name": "JPY",
+      "denomination": "10000 - 5000",
+      "buying": "0.2195",
+      "display_order": 8
+    },
+    "9": {
+      "currency_image": "Flag-07.jpg",
+      "country_name": "MYR",
+      "denomination": "100 - 50",
+      "buying": "7.53",
+      "display_order": 9
+    },
+    "10": {
+      "currency_image": "Flag-07.jpg",
+      "country_name": "MYR",
+      "denomination": "1-20",
+      "buying": "6.53",
+      "display_order": 10
+    },
+    "11": {
+      "currency_image": "Flag-08.jpg",
+      "country_name": "SGD",
+      "denomination": "1000-2",
+      "buying": "26.15",
+      "display_order": 11
+    },
+    "12": {
+      "currency_image": "Flag-09.jpg",
+      "country_name": "CNY",
+      "denomination": "100-50",
+      "buying": "4.80",
+      "display_order": 12
+    },
+    "13": {
+      "currency_image": "Flag-09.jpg",
+      "country_name": "CNY",
+      "denomination": "20 - 1",
+      "buying": "2.80",
+      "display_order": 13
+    },
+    "14": {
+      "currency_image": "Flag-10.jpg",
+      "country_name": "HKD",
+      "denomination": "1000 - 10",
+      "buying": "4.47",
+      "display_order": 14
+    },
+    "15": {
+      "currency_image": "Flag-11.jpg",
+      "country_name": "CAD",
+      "denomination": "100 - 5",
+      "buying": "25.60",
+      "display_order": 15
+    },
+    "16": {
+      "currency_image": "Flag-12.jpg",
+      "country_name": "DKK",
+      "denomination": "1000 - 50",
+      "buying": "4.10",
+      "display_order": 16
+    },
+    "17": {
+      "currency_image": "Flag-13.jpg",
+      "country_name": "NOK",
+      "denomination": "1000 - 50",
+      "buying": "2.40",
+      "display_order": 17
+    },
+    "18": {
+      "currency_image": "Flag-14.jpg",
+      "country_name": "SEK",
+      "denomination": "1000 - 20",
+      "buying": "2.65",
+      "display_order": 18
+    },
+    "19": {
+      "currency_image": "Flag-15.jpg",
+      "country_name": "KRW",
+      "denomination": "50000 - 5000",
+      "buying": "0.02190",
+      "display_order": 19
+    },
+    "20": {
+      "currency_image": "Flag-16.jpg",
+      "country_name": "INR",
+      "denomination": "รับเฉพาะ 5-500",
+      "buying": "0.360",
+      "display_order": 20
+    },
+    "21": {
+      "currency_image": "Flag-17.jpg",
+      "country_name": "NZD",
+      "denomination": "100 - 5",
+      "buying": "21.20",
+      "display_order": 21
+    },
+    "22": {
+      "currency_image": "Flag-18.jpg",
+      "country_name": "SAR",
+      "denomination": "500 - 1",
+      "buying": "9.15",
+      "display_order": 22
+    },
+    "23": {
+      "currency_image": "Flag-19.jpg",
+      "country_name": "AED",
+      "denomination": "1000 - 5",
+      "buying": "9.45",
+      "display_order": 23
+    },
+    "24": {
+      "currency_image": "Flag-20.jpg",
+      "country_name": "QAR",
+      "denomination": "500 - 1",
+      "buying": "9.45",
+      "display_order": 24
+    },
+    "25": {
+      "currency_image": "Flag-21.jpg",
+      "country_name": "VND",
+      "denomination": "500000 -10000 VND(:1000)",
+      "buying": "0.00111",
+      "display_order": 25
+    },
+    "26": {
+      "currency_image": "Flag-22.jpg",
+      "country_name": "IDR",
+      "denomination": "100000 - 1000 IDR(:1000)",
+      "buying": "0.00193",
+      "display_order": 26
+    },
+    "27": {
+      "currency_image": "Flag-23.jpg",
+      "country_name": "RUB",
+      "denomination": "5000 - 10",
+      "buying": "0.36",
+      "display_order": 27
+    },
+    "28": {
+      "currency_image": "Flag-24.jpg",
+      "country_name": "MMK",
+      "denomination": "10000 - 500",
+      "buying": "0.004",
+      "display_order": 28
+    },
+    "29": {
+      "currency_image": "Flag-25.jpg",
+      "country_name": "BND",
+      "denomination": "10000 - 1",
+      "buying": "26",
+      "display_order": 29
+    },
+    "30": {
+      "currency_image": "Flag-26.jpg",
+      "country_name": "OMR",
+      "denomination": "50 - 1",
+      "buying": "90.7",
+      "display_order": 30
+    },
+    "31": {
+      "currency_image": "Flag-27.jpg",
+      "country_name": "TWD",
+      "denomination": "2000 - 100",
+      "buying": "1",
+      "display_order": 31
+    },
+    "32": {
+      "currency_image": "Flag-28.jpg",
+      "country_name": "PHP",
+      "denomination": "1000 - 20",
+      "buying": "0.58",
+      "display_order": 32
+    },
+    "33": {
+      "currency_image": "Flag-29.jpg",
+      "country_name": "BHD",
+      "denomination": "20-0.5",
+      "buying": "-",
+      "display_order": 33
+    },
+    "34": {
+      "currency_image": "Flag-30.jpg",
+      "country_name": "KWD",
+      "denomination": "20 - 0.25",
+      "buying": "-",
+      "display_order": 34
+    },
+    "35": {
+      "currency_image": "Flag-31.jpg",
+      "country_name": "ZAR",
+      "denomination": "10-200",
+      "buying": "-",
+      "display_order": 35
+    },
+    "36": {
+      "currency_image": "Flag-31.jpg",
+      "country_name": "ZAR",
+      "denomination": "200",
+      "buying": "-",
+      "display_order": 36
+    },
+    "37": {
+      "currency_image": "Flag-32.jpg",
+      "country_name": "INR",
+      "denomination": "2000",
+      "buying": "-",
+      "display_order": 37
+    },
+    "38": {
+      "currency_image": "Flag-32.jpg",
+      "country_name": "INR",
+      "denomination": "500 - 5",
+      "buying": "-",
+      "display_order": 38
+    },
+    "39": {
+      "currency_image": "Flag-33.jpg",
+      "country_name": "SCOT",
+      "denomination": "100 - 5",
+      "buying": "-",
+      "display_order": 39
+    },
+    "40": {
+      "currency_image": "Flag-34.jpg",
+      "country_name": "MOP",
+      "denomination": "1000 - 10",
+      "buying": "-",
+      "display_order": 40
+    },
+    "41": {
+      "currency_image": "Flag-35.jpg",
+      "country_name": "TRY",
+      "denomination": "200 - 5",
+      "buying": "-",
+      "display_order": 41
+    },
+    "42": {
+      "currency_image": "Flag-36.jpg",
+      "country_name": "LAK",
+      "denomination": "100000 - 5000",
+      "buying": "-",
+      "display_order": 42
+    },
+    "43": {
+      "currency_image": "Flag-37.jpg",
+      "country_name": "JOD",
+      "denomination": "50 - 1",
+      "buying": "-",
+      "display_order": 43
+    },
+    "44": {
+      "currency_image": "Flag-38.jpg",
+      "country_name": "PKR",
+      "denomination": "5000 - 50",
+      "buying": "-",
+      "display_order": 44
+    },
+    "45": {
+      "currency_image": "Flag-39.jpg",
+      "country_name": "NPR",
+      "denomination": "1000 - 50",
+      "buying": "-",
+      "display_order": 45
+    }
+  }
+}
